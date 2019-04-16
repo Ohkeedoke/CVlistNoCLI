@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Rockon</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <link href="style.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+  </head>
+  <body>
+
+    <div id="vue-app">
+     <div id="container">
+      <div class="send">
+        <p><b>Send CV:</b></p>
+        <input type="text" v-model="name" placeholder="name">
+        <input type="text" v-model="surname" placeholder="surname">
+        <input type="number" min="0" max="100" v-model="age" placeholder="age">
+        <select v-model="position">
+          <option disabled value="">Please select position</option>
+          <option>Front-End</option>
+          <option>Back-End</option>
+          <option>Dev-Ops</option>
+          <option>Project Manager</option>
+          <option>UI/UX</option>
+        </select>
+        <textarea v-model="experience" placeholder="experience" rows="5"></textarea>
+        <button class='button' @click="sendCv">Send CV</button>
+      </div>
+
+      <div>
+        <p><b>List of sent CVs:</b></p>
+        <p v-if="cvJSON.elements == 0">You do not have any CVs yet</p>
+        <div v-for="(element, index) in cvJSON.elements" class='elements'>
+          {{index + 1}}.
+          <div class='element'>
+            <select v-model="cvJSON.elements[index].position" disabled>
+              <option disabled value="">Please select position</option>
+              <option>Front-End</option>
+              <option>Back-End</option>
+              <option>Dev-Ops</option>
+              <option>Project Manager</option>
+              <option>UI/UX</option>
+            </select>
+            <input type="text" v-model="cvJSON.elements[index].name" placeholder="name" disabled>
+            <input type="text" v-model="cvJSON.elements[index].surname" placeholder="surname" disabled>
+            <input type="number" min="0" max="100" v-model="cvJSON.elements[index].age" placeholder="age" disabled>
+            <input type="text" v-model="cvJSON.elements[index].experience" placeholder="experience" disabled>
+          </div>
+          <button class='button editButton' @click="updateCv(index)">Edit CV</button>
+          <button class='button' @click="deletedCv(index)">Delete CV</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
